@@ -10,19 +10,23 @@ import java.util.regex.Pattern;
 public class RegexTest1 {
 	
 	public static String REGEX1_time = "(?<Time1>(([0-1]\\d)|(2[0-3])):([0-5]\\d):([0-5]\\d))";
-	public static String REGEX1_start1 = "" + REGEX1_time + "\\h+?(Bbaa ccdd QU).*?\r\n.*?(eeff ddgg)" + "";//取
-	public static String REGEX1_start2 =  REGEX1_time + "\\h+?(AABB CC CUN:)" ;//00:11:22 AABB CC://存
-
+	public static String REGEX1_start1 = "" + REGEX1_time 
+			+ "\\h+?(((Bbaa ccdd QU).*?\r\n.*?(eeff ddgg))" 
+			+ "|((Bbaa ccdd QU).*?\r\n.*?(eeff ddgg failed)))";//取
+	public static String REGEX1_start2 =  REGEX1_time + "\\h+?((AABB CC CUN:\\v)|(AABB CC CUN:failed\\v))" ;//00:11:22 AABB CC://存
+	//public static String REGEX1_start3 =  REGEX1_time + "\\h+?((AABB CC CUN:)|(AABB CC CUN:failed))" ;//00:11:22 AABB CC://存
+//只要“存”是连续的就算作一笔
 	public static void main(String[] args) {//**无取款关键字时需要进一步处理
 		// TODO Auto-generated method stub
 		//Vector<String> vt = new Vector<String>();
 		Vector<String> vt1 = new Vector<String>();//取
 		Vector<String> vt2 = new Vector<String>();//存
-		testReg1(REGEX1_start1,DataEntity1.STR3,vt1,vt2);
+		testReg1(REGEX1_start1,DataEntity1.STR6,vt1,vt2);
+		System.out.println("--------------------------------------------------[取]==>");
 		for(String kname:vt1) {//首次,取出单纯1,或混合
 			System.out.println(kname   + "\r\n");			
 		}
-		System.out.println("--------------------------------------------------");
+		System.out.println("--------------------------------------------------[存]==>");
 		for(String kname:vt2) {//首次,取出单纯1,或混合
 			System.out.println(kname   + "\r\n");			
 		}
@@ -41,18 +45,18 @@ public class RegexTest1 {
 		while(m1.find()) {		
 			
 			index1 = m1.start("Time1");
-			tm1 = m1.group("Time1");
+			tm1 = m1.group("Time1");//时间取出
 			//System.out.println(index1 + " ==> " + tm1);
 			index1 = m1.start();
 			if(count==0) {//
 				//检索deposit
 				String sec_top = str.substring(0, index1);
-				testReg2(REGEX1_start2,sec_top,vt2);				
+				testReg2(REGEX1_start2,sec_top,vt2);		//存		
 			}
 			if(count > 0) {				
 				//System.out.println(str.substring(index2,index1));
 				String sec = str.substring(index2,index1);
-				int idx_tmp = testReg3(REGEX1_start2,sec);
+				int idx_tmp = testReg3(REGEX1_start2,sec);//存
 				if(idx_tmp>-1) {
 					vt1.add(sec.substring(0, idx_tmp));
 					vt2.add(sec.substring(idx_tmp));
@@ -64,20 +68,25 @@ public class RegexTest1 {
 			++count;
 			index2 = index1;			
 		}
-		if(index2>-1) {
+		if(index2>-1) {//末尾段片段处理
 			//System.out.println(str.substring(index2));
 			//vt1.put(tm1,str.substring(index2));
 			String sec = str.substring(index2);
-			int idx_tmp = testReg3(REGEX1_start2,sec);
+			int idx_tmp = testReg3(REGEX1_start2,sec);//存
 			if(idx_tmp>-1) {
-				vt1.add(sec.substring(0, idx_tmp));
-				vt2.add(sec.substring(idx_tmp));
+				vt1.add(sec.substring(0, idx_tmp));//取
+				vt2.add(sec.substring(idx_tmp));//存
 			}else {
-				vt1.add(sec);
+				vt1.add(sec);//取
 			}			
-		}else {//无取款关键字,作单笔交易?
-			System.out.println(str);
-			
+		}else {//无取款关键字,作单笔交易?//
+			//System.out.println(str);
+			int idx_tmp = testReg3(REGEX1_start2,str);
+			if(idx_tmp>-1) {
+				vt2.add(str.substring(idx_tmp));//存
+			}else {
+				System.out.println("【Neither Deposit nor Withdrawal】: "+str);
+			}
 		}
 	}
 	
