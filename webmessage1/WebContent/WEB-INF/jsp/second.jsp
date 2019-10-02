@@ -20,19 +20,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var url = 'http://' + window.location.host + '/webmessage1/stompsockjs';
 		var sc = new SockJS(url, undefined, {transports: ['websocket']});
 		var stomp = Stomp.over(sc);
-		var payload = JSON.stringify({'prop1':'Hi','prop2':'there'});
+		var payload = JSON.stringify({'prop1':'Hi'});
 		var headers = {username:'admin',password:'admin'};
 		stomp.connect(headers,function(frame){
 			
+			
+			/**
+			发送消息，主动机制
+			*/
+			var tx = stomp.begin();
+			stomp.send('/app/msg1',{transaction:tx.id},payload);
+			stomp.send('/app/broadcast',{transaction:tx.id},payload);
+			stomp.send('/app/msg2',{transaction:tx.id},payload);
+			tx.commit();
+			
+			
+			/**
+			订阅Topic，被动机制，消息可能来自web服务端或者来自Broker
+			**/
 			stomp.subscribe("/topic/msg1",function(data){
 				var obj=JSON.parse(data.body);
-				console.log("received:",obj);
+				console.log("received1:",obj['prop1']);
 			},function(err){
 				console.log(err.headers.message);
 			});
-			var tx = stomp.begin();
-			stomp.send('/app/msg1',{transaction:tx.id},payload);
-			tx.commit();
+			/**
+			订阅Topic，被动机制，消息可能来自web服务端或者来自Broker
+			**/
+			stomp.subscribe("/topic/msg2",function(data){
+				var obj=JSON.parse(data.body);
+				console.log("received2:",obj['prop1']);
+			},function(err){
+				console.log(err.headers.message);
+			});
+			
 		});
 		
 		
