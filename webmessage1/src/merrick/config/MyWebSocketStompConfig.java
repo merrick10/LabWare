@@ -13,7 +13,7 @@ public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfig
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/stompsockjs").withSockJS();
+		registry.addEndpoint("/stompsockjs").setAllowedOrigins("*").withSockJS();
 	}
 	
 	
@@ -28,7 +28,7 @@ public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfig
 				.setClientLogin("admin")
 				.setClientPasscode("password");
 		
-		registry.setApplicationDestinationPrefixes("/stompapp");
+		registry.setApplicationDestinationPrefixes("/app");
 	}
 	
 	

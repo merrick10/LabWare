@@ -16,12 +16,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	
 	window.onload = function(){
+
  		/* var url = 'ws://' + window.location.host + '/webmessage1/sock';
 		var sock =  new WebSocket(url);  */
 		
 		var url = 'http://' + window.location.host + '/webmessage1/sockjs';
  		//var url = '/webmessage1/sockjs';
 		var sock =  new SockJS(url);  
+
 		
 		sock.onopen = function(){
 			console.log("Opening");
