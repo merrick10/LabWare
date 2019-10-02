@@ -10,10 +10,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
 <title>STOMP</title>
 
 <script type="text/javascript">
 	
+
 
 </script>
 </head>

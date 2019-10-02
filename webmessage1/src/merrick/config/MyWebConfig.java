@@ -17,12 +17,14 @@ public class MyWebConfig extends AbstractAnnotationConfigDispatcherServletInitia
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
+
 		return new Class<?>[] {MyWebSocketConfig.class,MyWebSocketStompConfig.class};
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
 		return new Class<?>[] {MySpringWebMvcConfig.class};
+
 	}
 
 	@Override
