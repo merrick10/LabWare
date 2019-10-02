@@ -35,14 +35,34 @@ public class FirstCtrl {
 		return "first";
 	}
 	
-	@RequestMapping(path="/a1",method=RequestMethod.GET)
+	@RequestMapping(path="/subscriber1",method=RequestMethod.GET)
 	public String f2(Model mdl,HttpServletRequest req){
 		
-		log.info("Vistor!");
+		log.info("Subscriber1!");
 		
 		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
 		
 		return "second";
+	}
+	
+	@RequestMapping(path="/subscriber2",method=RequestMethod.GET)
+	public String f4(Model mdl,HttpServletRequest req){
+		
+		log.info("Subscriber2!");
+		
+		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
+		
+		return "fourth";
+	}
+	
+	@RequestMapping(path="/broadcast",method=RequestMethod.GET)
+	public String f3(Model mdl,HttpServletRequest req){
+		
+		log.info("Sender!");
+		
+		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
+		
+		return "third";
 	}
 
 }

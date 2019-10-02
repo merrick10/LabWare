@@ -50,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 </head>
 <body>
+<h2>websocket</h2>
 <br/>
 <h1 style="color: blue;font-size: 20px;	">Now:<c:out value="${msg}"></c:out></h1>
 <br/>

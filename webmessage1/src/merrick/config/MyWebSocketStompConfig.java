@@ -22,13 +22,16 @@ public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfig
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {		
 		
-		//registry.enableSimpleBroker("/stompqueue","/stomptopic");//
+//		registry.enableSimpleBroker("/queue","/topic");//
 		
 		registry.enableStompBrokerRelay("/topic","/queue")
 				.setRelayHost("localhost")
 				.setRelayPort(61613)
 				.setClientLogin("admin")
-				.setClientPasscode("password");
+				.setClientPasscode("password")
+				.setSystemHeartbeatSendInterval(0)
+				.setSystemHeartbeatReceiveInterval(0);
+		//broker为activemq为什么没有立即转发订阅的问题，待研究。。。。。。
 		
 		registry.setApplicationDestinationPrefixes("/app");
 	}
