@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/sockjs.js"></script>
 <script type="text/javascript" src="js/stomp.js"></script>
 <script type="text/javascript">
+
 	window.onload = function(){
 		var url = 'http://' + window.location.host + '/webmessage1/stompsockjs';
 		var sc = new SockJS(url, undefined, {transports: ['websocket']});
@@ -36,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 	}
+
 
 
 </script>
