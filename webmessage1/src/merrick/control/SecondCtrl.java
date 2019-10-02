@@ -27,7 +27,7 @@ public class SecondCtrl {
 		MessageEntity1 r = new MessageEntity1();
 		r.setProp1("AA");
 		
-		return r;
+		return r;//返回值，相当于给客户端的响应
 	}
 	
 	@SubscribeMapping({"/msg2"})// "/app/msg2"
@@ -35,18 +35,18 @@ public class SecondCtrl {
 	public MessageEntity1 handlSubscription(MessageEntity1 obj) {// "/app/msg1" subscribe handle
 		log.info("Received msg,p1:" + obj.getProp1() );
 		
-		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker
+		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker//不会发给发送者
 		MessageEntity1 out = new MessageEntity1();
 		out.setProp1("XX");
 		
-		return out;
+		return out;//返回值，相当于给客户端的响应
 	}
 	
 	
 	@MessageMapping("/broadcast")// "/app/broadcast"
 	public void broadcast(MessageEntity1 obj) {
 		log.info("Received msg,p1:" + obj.getProp1());		
-		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker
+		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker//不会发给发送者
 	}
 	
 	
