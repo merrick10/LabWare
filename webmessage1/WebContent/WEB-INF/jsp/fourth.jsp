@@ -28,16 +28,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			/**
 			发送消息，主动机制
 			*/
-			var tx = stomp.begin();
-			stomp.send('/app/msg2',{transaction:tx.id},payload_subscribe2);
-			tx.commit();
+// 			var tx = stomp.begin();
+// 			stomp.send('/app/msg2',{transaction:tx.id},payload_subscribe2);//会发送给APP
+// 			tx.commit();
 			
 			
 
 			/**
 			订阅Topic，被动机制，消息可能来自web服务端或者来自Broker
 			**/
-			stomp.subscribe("/topic/msg2",function(data){
+			stomp.subscribe("/topic/msg2",function(data){//仅仅会发送给broker
 				var obj=JSON.parse(data.body);
 				console.log("received2:",obj['prop1']);
 			},function(err){

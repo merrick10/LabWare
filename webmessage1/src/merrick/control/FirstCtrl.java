@@ -7,6 +7,7 @@ import javax.websocket.server.PathParam;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -24,6 +25,10 @@ public class FirstCtrl {
 	
 	
 	private static Logger log =  LogManager.getLogger(FirstCtrl.class);	
+	
+	@Autowired
+	private BroadTemplateMsgServiceImpl tmpmsg;
+	
 
 	@RequestMapping(path="/",method=RequestMethod.GET)
 	public String f1(Model mdl,HttpServletRequest req){
@@ -64,5 +69,28 @@ public class FirstCtrl {
 		
 		return "third";
 	}
+	
+	@RequestMapping(path="/templatemgsg",method=RequestMethod.POST)
+	public String f6(Model mdl,HttpServletRequest req){		//消息构建，发送
+		log.info("Sender Template function!");		
+		MessageEntity1 obj = new MessageEntity1();
+		obj.setProp1( LocalDateTime.now().toString()  +",This is Template messaging... ");
+		tmpmsg.broadcastTemplateMsg(obj);  //发送消息，为特定topic
+		return "normal";
+	}
+	
+	@RequestMapping(path="/normal",method=RequestMethod.GET)
+	public String f8(Model mdl,HttpServletRequest req){		//普通测试页
+		log.info("Normal page vistor!");		
+		
+		return "normal";
+	}
+	
+	@RequestMapping(path="/tp1",method=RequestMethod.GET)
+	public String f67(Model mdl,HttpServletRequest req){	//订阅者页面，测试模板消息	
+		log.info("Subscriber page,template!");		
+		return "fifth";
+	}
+	
 
 }

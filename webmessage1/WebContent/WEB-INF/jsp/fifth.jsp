@@ -11,54 +11,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-<title>STOMP_receiver1</title>
+<title>STOMP_subscriber_templateMsg</title>
 <script type="text/javascript" src="js/sockjs.js"></script>
 <script type="text/javascript" src="js/stomp.js"></script>
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="js/handlebars-v4.3.1.js"></script>
 <script type="text/javascript">
 
 	window.onload = function(){
 		var url = 'http://' + window.location.host + '/webmessage1/stompsockjs';
 		var sc = new SockJS(url, undefined, {transports: ['websocket']});
 		var stomp = Stomp.over(sc);
-		var payload_subscribe1 = JSON.stringify({'prop1':'Need subscribe 1.'});
 		var headers = {username:'admin',password:'admin'};
 		stomp.connect(headers,function(frame){
-			
-			
-			/**
-			发送消息，主动机制
-			*/
-// 			var tx = stomp.begin();
-// 			stomp.send('/app/msg1',{transaction:tx.id},payload_subscribe1);//会发送给APP
-// 			tx.commit();
-			
-			
+
 			/**
 			订阅Topic，被动机制，消息可能来自web服务端或者来自Broker
+			
+			模板消息，订阅，订阅的消息模板展现
+			
 			**/
-			stomp.subscribe("/topic/msg1",function(data){//仅仅会发送给broker
-				var obj=JSON.parse(data.body);
-				console.log("received1:",obj['prop1']);
+			stomp.subscribe("/topic/template1",function(data){
+				var obj=JSON.parse(data.body);				
+				console.log("received:",obj);
+				var source = $('#templatesymb1').html();
+				var template = Handlebars.compile(source);//前端库，Handlebars库
+				var content = template(obj);//消息模板
+				$('#lst1').prepend(content);
+				
+				
 			},function(err){
 				console.log(err.headers.message);
-			});
-
-			
-		});
-		
-		
+			});			
+		});		
 	}
-
-
-
 </script>
+
+<script id="templatesymb1" type="text/x-handlebars-template">
+	<li id="preexist">
+		<div style='color:blue;'>{{prop1}}</div>
+	</li>
+</script>
+
+
 </head>
 <body>
-<h2>stomp subscriber1</h2>
+<h2>stomp subscriber template message</h2>
 <br/>
-<h1 style="color: blue;font-size: 30px;	">Now:<c:out value="${msg}"></c:out></h1>
 <br/>
-
+<ul id="lst1" ></ul>
 
 <br/>
 <hr/>
