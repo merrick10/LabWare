@@ -35,7 +35,9 @@ public class SecondCtrl {
 	public MessageEntity1 handlSubscription(MessageEntity1 obj) {// "/app/msg1" subscribe handle
 		log.info("Received msg_sub2,p1:" + obj.getProp1() );
 		
+
 		//simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker//不会发给发送者
+
 		MessageEntity1 out = new MessageEntity1();
 		out.setProp1("XX_response_msg2_subscribe");
 		
@@ -45,7 +47,9 @@ public class SecondCtrl {
 	
 	@MessageMapping("/broadcast")// "/app/broadcast"
 	public void broadcast(MessageEntity1 obj) {
+
 		log.info("Received msg_broadcast_request,p1:" + obj.getProp1());		
+
 		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//发送会经过broker//不会发给发送者
 	}
 	
