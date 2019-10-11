@@ -31,7 +31,7 @@ public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfig
 				.setClientPasscode("password")
 				.setSystemHeartbeatSendInterval(0)
 				.setSystemHeartbeatReceiveInterval(0);
-		//broker为activemq为什么没有立即转发订阅的问题，待研究。。。。。。
+		//broker为activemq为什么没有立即转发订阅的问题，原因是：订阅‘响应’会发给客户端，但普通topic消息不会发给消息“发送者”
 		
 		registry.setApplicationDestinationPrefixes("/app");
 	}
