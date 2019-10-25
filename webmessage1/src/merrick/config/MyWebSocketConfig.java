@@ -16,12 +16,12 @@ public class MyWebSocketConfig implements WebSocketConfigurer {
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry whr) {
-//		whr.addHandler(sockhdl(), "/sock");//OK//ÎŞĞèjackson¿â
+//		whr.addHandler(sockhdl(), "/sock");//OK//æ— éœ€jacksonåº“
 		
 		whr.addHandler(sockhdl(), "/sockjs/**").withSockJS();
 		/**
 		 * 
-		 * ¶ÔÓÚSpring4.2.5£¬ÒªÊ¹ÓÃSockJS£¬»¹±ØĞëÊ¹ÓÃJackson2µÄjar£¬°æ±¾±ØĞëÊÇµÍ°æ±¾2.7£¬ÈôÊ¹ÓÃ2.8°æ±¾»áÈçÏÂ³ö´í£º
+		 * å¯¹äºSpring4.2.5ï¼Œè¦ä½¿ç”¨SockJSï¼Œè¿˜å¿…é¡»ä½¿ç”¨Jackson2çš„jarï¼Œç‰ˆæœ¬å¿…é¡»æ˜¯ä½ç‰ˆæœ¬2.7ï¼Œè‹¥ä½¿ç”¨2.8ç‰ˆæœ¬ä¼šå¦‚ä¸‹å‡ºé”™ï¼š
 		 *java.lang.IllegalStateException:  A SockJsMessageCodec is required but not available: Add Jackson 2 to the classpath, or configure a c
 		 * 
 		 * 

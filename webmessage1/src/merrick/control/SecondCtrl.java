@@ -21,27 +21,27 @@ public class SecondCtrl {
 	
 	
 	@MessageMapping(value="/msg1")
-	@SendTo("/topic/msg1")//·µ»ØÖµ²»»á¾­¹ıbroker
+	@SendTo("/topic/msg1")//è¿”å›å€¼ä¸ä¼šç»è¿‡broker
 	public MessageEntity1 handlMsg(MessageEntity1 obj) {// "/app/msg1"
 		log.info("Received msg_sub1,p1:" + obj.getProp1());		
 		MessageEntity1 r = new MessageEntity1();
 		r.setProp1("AA_response_msg1_subscribe");
 		
-		return r;//·µ»ØÖµ£¬Ïàµ±ÓÚ¸ø¿Í»§¶ËµÄÏìÓ¦
+		return r;//è¿”å›å€¼ï¼Œç›¸å½“äºç»™å®¢æˆ·ç«¯çš„å“åº”
 	}
 	
 	@SubscribeMapping({"/msg2"})// "/app/msg2"
-	@SendTo("/topic/msg2")//·µ»ØÖµ²»»á¾­¹ıbroker
+	@SendTo("/topic/msg2")//è¿”å›å€¼ä¸ä¼šç»è¿‡broker
 	public MessageEntity1 handlSubscription(MessageEntity1 obj) {// "/app/msg1" subscribe handle
 		log.info("Received msg_sub2,p1:" + obj.getProp1() );
 		
 
-		//simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//·¢ËÍ»á¾­¹ıbroker//²»»á·¢¸ø·¢ËÍÕß
+		//simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//å‘é€ä¼šç»è¿‡broker//ä¸ä¼šå‘ç»™å‘é€è€…
 
 		MessageEntity1 out = new MessageEntity1();
 		out.setProp1("XX_response_msg2_subscribe");
 		
-		return out;//·µ»ØÖµ£¬Ïàµ±ÓÚ¸ø¿Í»§¶ËµÄÏìÓ¦
+		return out;//è¿”å›å€¼ï¼Œç›¸å½“äºç»™å®¢æˆ·ç«¯çš„å“åº”
 	}
 	
 	
@@ -50,7 +50,7 @@ public class SecondCtrl {
 
 		log.info("Received msg_broadcast_request,p1:" + obj.getProp1());		
 
-		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//·¢ËÍ»á¾­¹ıbroker//²»»á·¢¸ø·¢ËÍÕß
+		simpMessageSendingOperations.convertAndSend("/topic/msg1",obj);//å‘é€ä¼šç»è¿‡broker//ä¸ä¼šå‘ç»™å‘é€è€…
 	}
 	
 	

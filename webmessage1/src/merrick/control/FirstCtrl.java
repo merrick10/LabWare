@@ -35,7 +35,7 @@ public class FirstCtrl {
 		
 		log.info("Vistor!");
 		
-		mdl.addAttribute("msg",  "Ê±¼ä£¬"+ LocalDateTime.now().toString());		
+		mdl.addAttribute("msg",  "æ—¶é—´ï¼Œ"+ LocalDateTime.now().toString());		
 		
 		return "first";
 	}
@@ -45,7 +45,7 @@ public class FirstCtrl {
 		
 		log.info("Subscriber1!");
 		
-		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
+		mdl.addAttribute("msg",  "Timeï¼Œ"+ LocalDateTime.now().toString());		
 		
 		return "second";
 	}
@@ -55,7 +55,7 @@ public class FirstCtrl {
 		
 		log.info("Subscriber2!");
 		
-		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
+		mdl.addAttribute("msg",  "Timeï¼Œ"+ LocalDateTime.now().toString());		
 		
 		return "fourth";
 	}
@@ -65,29 +65,29 @@ public class FirstCtrl {
 		
 		log.info("Sender!");
 		
-		mdl.addAttribute("msg",  "Time£¬"+ LocalDateTime.now().toString());		
+		mdl.addAttribute("msg",  "Timeï¼Œ"+ LocalDateTime.now().toString());		
 		
 		return "third";
 	}
 	
 	@RequestMapping(path="/templatemgsg",method=RequestMethod.POST)
-	public String f6(Model mdl,HttpServletRequest req){		//ÏûÏ¢¹¹½¨£¬·¢ËÍ
+	public String f6(Model mdl,HttpServletRequest req){		//æ¶ˆæ¯æ„å»ºï¼Œå‘é€
 		log.info("Sender Template function!");		
 		MessageEntity1 obj = new MessageEntity1();
 		obj.setProp1( LocalDateTime.now().toString()  +",This is Template messaging... ");
-		tmpmsg.broadcastTemplateMsg(obj);  //·¢ËÍÏûÏ¢£¬ÎªÌØ¶¨topic
+		tmpmsg.broadcastTemplateMsg(obj);  //å‘é€æ¶ˆæ¯ï¼Œä¸ºç‰¹å®štopic
 		return "normal";
 	}
 	
 	@RequestMapping(path="/normal",method=RequestMethod.GET)
-	public String f8(Model mdl,HttpServletRequest req){		//ÆÕÍ¨²âÊÔÒ³
+	public String f8(Model mdl,HttpServletRequest req){		//æ™®é€šæµ‹è¯•é¡µ
 		log.info("Normal page vistor!");		
 		
 		return "normal";
 	}
 	
 	@RequestMapping(path="/tp1",method=RequestMethod.GET)
-	public String f67(Model mdl,HttpServletRequest req){	//¶©ÔÄÕßÒ³Ãæ£¬²âÊÔÄ£°åÏûÏ¢	
+	public String f67(Model mdl,HttpServletRequest req){	//è®¢é˜…è€…é¡µé¢ï¼Œæµ‹è¯•æ¨¡æ¿æ¶ˆæ¯	
 		log.info("Subscriber page,template!");		
 		return "fifth";
 	}
