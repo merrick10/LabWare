@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/mvc 
+    	http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+       "> 
+	
+	<!-- 	Bean扫描配置 -->
+	<context:component-scan  base-package="merrick.ctrl,merrick.util" />
+
+	<!-- 	注解式校验器声明 -->
+<!-- 	<mvc:annotation-driven validator="myvalidator" /> -->
+	
+<!-- 	<import resource="spring-db.xml"/> -->
+<!-- 	<import resource="spring-tiles.xml"/> -->
+	
+
+	<!-- 	MVC转发映射 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />	
+	</bean>	
+	
+	
+	
+	
+	<!-- 	国际化资源 -->
+	
+	<!-- 	拦截器 -->	
+	
+	<!-- 	校验器 -->
+	
+	<!-- 	文件上传限制 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600"/>  
+      	<property name="maxInMemorySize" value="4096"/> 
+      	<property name="defaultEncoding" value="UTF-8"/>
+      	<property name="uploadTempDir" value="upload/temp"/>
+	</bean><!-- 使用spring框架API上传文件必需的配置，不然会出现类型转换错误RequestFacade  -->
+      
+</beans>

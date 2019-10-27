@@ -7,8 +7,8 @@
         </Console>
 	
        <RollingFile name="RollingFile" 
-       				fileName="D:/ex_websocket/webmessage1/log.log"
-                    filePattern="D:/ex_websocket/webmessage1/$${date:yyyy-MM}/log-%d{yyyy-MM-dd}-%i.log">                     
+       				fileName="./logs/log.log"
+                    filePattern="./logs/webmessage1/$${date:yyyy-MM}/log-%d{yyyy-MM-dd}-%i.log">                     
             <Filters>
                 <ThresholdFilter level="INFO"/>
             </Filters>

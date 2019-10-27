@@ -10,7 +10,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
-@ComponentScan(basePackages= {"merrick.control"})//×¢ÒâÏà¹ØcontrollerµÄÅäÖÃ
+@ComponentScan(basePackages= {"merrick.control"})//æ³¨æ„ç›¸å…³controllerçš„é…ç½®
 public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
 	@Override
@@ -31,7 +31,7 @@ public class MyWebSocketStompConfig extends AbstractWebSocketMessageBrokerConfig
 				.setClientPasscode("password")
 				.setSystemHeartbeatSendInterval(0)
 				.setSystemHeartbeatReceiveInterval(0);
-		//brokerÎªactivemqÎªÊ²Ã´Ã»ÓĞÁ¢¼´×ª·¢¶©ÔÄµÄÎÊÌâ£¬Ô­ÒòÊÇ£º¶©ÔÄ¡®ÏìÓ¦¡¯»á·¢¸ø¿Í»§¶Ë£¬µ«ÆÕÍ¨topicÏûÏ¢²»»á·¢¸øÏûÏ¢¡°·¢ËÍÕß¡±
+		//brokerä¸ºactivemqä¸ºä»€ä¹ˆæ²¡æœ‰ç«‹å³è½¬å‘è®¢é˜…çš„é—®é¢˜ï¼ŒåŸå› æ˜¯ï¼šè®¢é˜…â€˜å“åº”â€™ä¼šå‘ç»™å®¢æˆ·ç«¯ï¼Œä½†æ™®é€štopicæ¶ˆæ¯ä¸ä¼šå‘ç»™æ¶ˆæ¯â€œå‘é€è€…â€
 		
 		registry.setApplicationDestinationPrefixes("/app");
 	}
